@@ -1,0 +1,146 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "fields": {
+          "question": ""
+        }
+      },
+      "id": "1",
+      "name": "Ask a question",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "create",
+        "model": "gpt-3.5-turbo",
+        "messages": [
+          {
+            "role": "user",
+            "content": "={{$json[\"question\"]}}"
+          }
+        ]
+      },
+      "id": "2",
+      "name": "OpenAI Chat",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 2,
+      "position": [500, 300],
+      "credentials": {
+        "openAIApi": "OpenAi account"
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{$json[\"question\"]}}"
+      },
+      "id": "3",
+      "name": "Sentiment (Question)",
+      "type": "n8n-nodes-base.textAnalysis",
+      "typeVersion": 1,
+      "position": [750, 200]
+    },
+    {
+      "parameters": {
+        "text": "={{$json[\"choices\"][0][\"message\"][\"content\"]}}"
+      },
+      "id": "4",
+      "name": "Sentiment (Response)",
+      "type": "n8n-nodes-base.textAnalysis",
+      "typeVersion": 1,
+      "position": [750, 400]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{\n  content: `## Nouvelle conversation\\n\\n**Question**: ${$json[\"question\"]}\\n_Sentiment_: ${$items(\"Sentiment (Question)\")[0].json.sentiment}\\n\\n**Réponse OpenAI**: ${$items(\"OpenAI Chat\")[0].json.choices[0].message.content}\\n_Sentiment_: ${$items(\"Sentiment (Response)\")[0].json.sentiment}\\n\\n---\\n` \n}];"
+      },
+      "id": "5",
+      "name": "Format Markdown",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "fileName": "README.md",
+        "dataPropertyName": "content",
+        "fileExtension": "md"
+      },
+      "id": "6",
+      "name": "Write to README.md",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    }
+  ],
+  "connections": {
+    "Ask a question": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Chat",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sentiment (Question)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat": {
+      "main": [
+        [
+          {
+            "node": "Sentiment (Response)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Format Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment (Question)": {
+      "main": [
+        [
+          {
+            "node": "Format Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment (Response)": {
+      "main": [
+        [
+          {
+            "node": "Format Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Markdown": {
+      "main": [
+        [
+          {
+            "node": "Write to README.md",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
