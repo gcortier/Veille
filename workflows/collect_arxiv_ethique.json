@@ -1,0 +1,154 @@
+{
+    "nodes": [
+        {
+            "parameters": {},
+            "id": "start",
+            "name": "Start",
+            "type": "n8n-nodes-base.start",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://export.arxiv.org/api/query?search_query=all:ethics%20AND%20artificial%20intelligence&start=0&max_results=5",
+                "responseFormat": "string"
+            },
+            "id": "httpArxiv",
+            "name": "Query arXiv",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 2,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "options": {},
+                "propertyName": "json"
+            },
+            "id": "xmlToJson",
+            "name": "XML to JSON",
+            "type": "n8n-nodes-base.xml",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "const feed = items[0].json.feed;\nconst entries = feed.entry ? (Array.isArray(feed.entry) ? feed.entry : [feed.entry]) : [];\nreturn entries.map(e => ({\n  json: {\n    title: e.title?._ || e.title || '',\n    authors: Array.isArray(e.author) ? e.author.map(a => a.name || a).join(', ') : (e.author?.name || e.author || ''),\n    published: e.published || '',\n    link: e.id || ''\n  }\n}));"
+            },
+            "id": "parser",
+            "name": "Parse Results",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                800,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "return [\n  {\n    json: {\n      data: JSON.stringify(items.map(i => i.json), null, 2)\n    }\n  }\n];"
+            },
+            "id": "prepareJson",
+            "name": "Prepare JSON",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                900,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "direction": "jsonToBinary",
+                "sourceKey": "data",
+                "destinationKey": "data"
+            },
+            "name": "Move JSON to Binary",
+            "type": "n8n-nodes-base.moveBinaryData",
+            "typeVersion": 1,
+            "position": [
+                600,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "fileName": "/files/arxiv_ethique_ia.json",
+                "dataPropertyName": "data"
+            },
+            "id": "writeFile",
+            "name": "Write File",
+            "type": "n8n-nodes-base.writeBinaryFile",
+            "typeVersion": 1,
+            "position": [
+                1050,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Start": {
+            "main": [
+                [
+                    {
+                        "node": "Query arXiv",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Query arXiv": {
+            "main": [
+                [
+                    {
+                        "node": "XML to JSON",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "XML to JSON": {
+            "main": [
+                [
+                    {
+                        "node": "Parse Results",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Parse Results": {
+            "main": [
+                [
+                    {
+                        "node": "Prepare JSON",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Prepare JSON": {
+            "main": [
+                [
+                    {
+                        "node": "Write File",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

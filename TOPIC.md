@@ -81,6 +81,53 @@ for entry in feed.entries:
 
 ---
 
+## Exemple de workflow n8n pour la veille technologique
+
+### 1. Collecte automatisée des sources
+- Utilisation du nœud **RSS Feed Read** pour surveiller plusieurs flux RSS (ex : arXiv, blogs IA, CNIL, etc.)
+- Stockage automatique des nouveaux articles dans une base de données (ex : Google Sheets, Notion, ou base interne via le nœud **Database**)
+
+```bash
+# Exemple de nœuds n8n pour la collecte
+RSS Feed Read -> Filter (nouveaux articles) -> Database (insert)
+```
+
+### 2. Analyse et résumé automatique
+- Utilisation du nœud **HTTP Request** pour appeler une API d'IA (ex : OpenAI, HuggingFace) afin de générer un résumé automatique de chaque article collecté
+- Ajout du résumé dans la base de données, lié à la source
+
+```python
+# Exemple de payload pour l'API OpenAI dans n8n
+{
+  "model": "gpt-3.5-turbo",
+  "messages": [
+    {"role": "system", "content": "Résume cet article en 5 lignes."},
+    {"role": "user", "content": "<texte de l'article>"}
+  ]
+}
+```
+
+### 3. Rédaction et partage
+- Génération automatique d'un rapport hebdomadaire (nœud **HTML** ou **Markdown**)
+- Envoi du rapport par email ou publication sur Notion/Slack
+
+---
+
+## Schéma simplifié du flow n8n
+
+1. **Collecte** : RSS Feed Read → Database
+2. **Analyse** : Database (nouveaux articles) → HTTP Request (résumé IA) → Database (ajout résumé)
+3. **Restitution** : Database (résumés) → Markdown/HTML → Email/Notion/Slack
+
+---
+
+## Ressources pour démarrer avec n8n
+- [Documentation officielle n8n](https://docs.n8n.io/)
+- [Exemple de workflow RSS + OpenAI](https://n8n.io/workflows/)
+- [Intégration Notion avec n8n](https://n8n.io/integrations/notion/)
+
+---
+
 ## Conclusion
 La veille technologique proactive est un atout clé pour anticiper les évolutions, garantir l'éthique et la conformité, et partager la connaissance au sein de l'équipe.
 

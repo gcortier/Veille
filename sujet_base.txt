@@ -1,0 +1,69 @@
+Réponse à une Demande Client IA
+Assigné
+fr
+
+AS
+Antony Schutz
+créé : 22/05/25
+Vous rejoignez l'équipe de fastIA en tant que développeur junior. 
+Pour votre premier jour, on vous soumet une demande précise qui va vous amener à maîtriser une compétence fondamentale :
+- la veille technologique proactive 
+- la restitution claire et structurée. 
+Référentiels
+Compétences transversales
+[Atlas IA] Concevoir et implémenter une solution d'IA
+Contexte du projet
+En tant que concepteur et intégrateur IA, votre mission transcende la simple lecture de média: elle exige que vous transformiez la veille technologique en un véritable rituel. Cela implique de :
+
+​
+
+automatiser la collecte d'informations pertinentes via des abonnements à des newsletters et des flux RSS
+maîtriser les techniques de recherche pour identifier les ressources clés et leurs fiabilités
+analyser les besoins du client afin de sélectionner les sources disponibles
+partager vos connaissances aux parties prenantes.
+​
+
+Un client du mouvement impact France vous soumet une demande de projet qui implique de porter une attention particulière sur :
+
+les biais éthiques
+la gouvernance des données et la protection de la vie privée
+Modalités pédagogiques
+Vous aurez environ deux semaines pour documenter votre analyse avant de la restituer au client (Module 2).
+
+Votre client vous impose la méthode de restitution, il veut que le document soit au format Markdown qui est utilisé pour la rédaction de procédures d’installation et de documentation (README.md).
+
+Le client vous invite à intégrer dans votre documentation:
+
+des titres (h1 à h6)
+des polices normales, en italiques et en gras
+des liens hypertext vers vos sources
+des blocs de code bash et python
+des listes à points
+des sections
+​
+
+Proposition d’outils:
+
+​
+
+Feedly : Agrégateur de flux RSS pour centraliser vos sources d'information en un seul endroit.
+Inoreader :Alternative à Feedly avec des options de filtrage avancées et des alertes personnalisées.
+Pocket : Application pour sauvegarder des articles et des vidéos pour une consultation ultérieure.
+Substack : Plateforme pour s'abonner à des newsletters de créateurs indépendants.
+Google Alerts : Service pour recevoir des alertes par e-mail sur des mots-clés spécifiques.
+Semantic Scholar : Moteur de recherche de publications scientifiques utilisant l'IA.
+arXiv : Dépôt de prépublications scientifiques pour suivre les dernières recherches.
+Notion/Evernote : Applications pour organiser, stocker et partager des informations et des notes.
+Modalités d'évaluation
+Présentation orale devant le groupe avec un support de quelques slides.
+Partage du fichier Markdown qui sera révisé. 
+
+Livrables
+Le paramétrage du rituel de veille et l'utilisation des outils.
+La procédures d’installation et de documentation (fichier Markdown).
+Le support de présentation.
+
+Critères de performance
+La nomenclature du fichier Markdown est respectée.
+Au moins un des outils proposé est utilisé (ou en proposer un autre) dans le cadre du rituel.
+La présentation du travail réalisé synthétise les résultats et la démarche.

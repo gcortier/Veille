@@ -1,0 +1,15 @@
+2025-06-02T18:52:29.112781+0200 INFO Q semanticscholar '{'message': 'Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form', 'code': '429'}'
+2025-06-02T19:09:04.618019+0200 INFO Q semanticscholar '{'message': 'Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form', 'code': '429'}'
+2025-06-02T19:13:25.676815+0200 INFO Q semanticscholar '{'error': 'Unrecognized or unsupported fields: [language]'}'
+2025-06-02T19:13:52.402817+0200 INFO Q semanticscholar '{'message': 'Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form', 'code': '429'}'
+2025-06-02T19:15:22.994915+0200 INFO Q semanticscholar '{'message': 'Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form', 'code': '429'}'
+2025-06-02T19:15:31.596911+0200 INFO Q semanticscholar '{'error': 'Unrecognized or unsupported fields: [language]'}'
+2025-06-02T19:15:55.022458+0200 INFO Q semanticscholar '{'error': 'Unrecognized or unsupported fields: [language]'}'
+2025-06-02T19:15:59.106458+0200 INFO Q semanticscholar '{'error': 'Unrecognized or unsupported fields: [language]'}'
+2025-06-02T19:16:03.736458+0200 INFO Q semanticscholar '{'error': 'Unrecognized or unsupported fields: [language]'}'
+2025-06-02T19:16:08.202460+0200 INFO Q semanticscholar '{'error': 'Unrecognized or unsupported fields: [language]'}'
+2025-06-02T19:16:53.750460+0200 INFO Route '/openalex' url : https://api.openalex.org/works?filter=title.search:IA in tech&per-page=10
+2025-06-02T19:17:35.993041+0200 INFO Route '/openalex' url : https://api.openalex.org/works?filter=title.search:IA%20in%20tech&per-page=10
+2025-06-02T19:19:35.671152+0200 INFO Route '/openalex' url : https://api.openalex.org/works?filter=title.search:IA%20in%20tech&per-page=10
+2025-06-04T15:41:18.049410+0200 INFO Route '/' called by  127.0.0.1
+2025-06-04T15:43:35.275148+0200 INFO Route '/' called by  127.0.0.1

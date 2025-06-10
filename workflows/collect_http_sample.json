@@ -1,0 +1,143 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "deep learning climate change"
+            }
+          ]
+        }
+      },
+      "id": "setQuery",
+      "name": "Set Query",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.semanticscholar.org/graph/v1/paper/search",
+        "queryParameters": [
+          {
+            "name": "query",
+            "value": "={{$json[\"query\"]}}"
+          },
+          {
+            "name": "limit",
+            "value": "5"
+          },
+          {
+            "name": "fields",
+            "value": "title,authors,year,url"
+          }
+        ],
+        "responseFormat": "json"
+      },
+      "id": "httpRequest",
+      "name": "Semantic Scholar Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const results = items[0].json.data.map(paper => ({\n  title: paper.title,\n  authors: paper.authors.map(a => a.name).join(\", \"),\n  year: paper.year,\n  url: paper.url\n}))\n\nreturn [{ json: { results } }]"
+      },
+      "id": "formatResults",
+      "name": "Format Results",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "fileName": "/files/search_results.json",
+        "dataPropertyName": "data",
+        "fileFormat": "json"
+      },
+      "id": "writeFile",
+      "name": "Write to File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from(JSON.stringify($json.results, null, 2))\n      }\n    }\n  }\n];"
+      },
+      "id": "convertToBinary",
+      "name": "Convert to Binary",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [950, 450]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Set Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Query": {
+      "main": [
+        [
+          {
+            "node": "Semantic Scholar Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Semantic Scholar Search": {
+      "main": [
+        [
+          {
+            "node": "Format Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Results": {
+      "main": [
+        [
+          {
+            "node": "Convert to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to Binary": {
+      "main": [
+        [
+          {
+            "node": "Write to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

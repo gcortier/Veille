@@ -1,0 +1,177 @@
+{
+  "name": "Chat to Gsheet",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d7986798-92c5-4be9-8918-66ee697ea917",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -20
+      ],
+      "webhookId": "ea7b9dc0-80b2-4bf1-ae1d-ee6e1534bd52"
+    },
+    {
+      "parameters": {
+        "content": "## Start by saying 'hi'\n![Button](https://i.imgur.com/PrIBJI6.png)",
+        "height": 149,
+        "width": 150
+      },
+      "id": "62fc7d66-0938-4ed8-9da1-01db8a9d4c95",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "123eNHqqEkywuZ-sLA5X5Gce3vFhmmDAHsx1tUtoojTE",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 285102934,
+          "mode": "list",
+          "cachedResultName": "DYN_COURSES_LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/123eNHqqEkywuZ-sLA5X5Gce3vFhmmDAHsx1tUtoojTE/edit#gid=285102934"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "idCourse"
+            },
+            {
+              "lookupColumn": "name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        740,
+        -160
+      ],
+      "id": "53f27221-e219-4f46-8964-46996e101f70",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kwzbLFA0pmsh9qE4",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "11nA-isgpEki3fr40gdcJ3K2gvLwlTAu8UrbLrEo4xqU",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "output",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11nA-isgpEki3fr40gdcJ3K2gvLwlTAu8UrbLrEo4xqU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "date": "={{ new Date(Date.now()).toLocaleString() }}",
+            "message": "={{ $json.chatInput }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        520,
+        -20
+      ],
+      "id": "e2d4f714-8254-45c3-9284-7a8a27dd6f2e",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kwzbLFA0pmsh9qE4",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dccdc5c6-8794-4686-b19b-58d2ef8bb19b",
+  "meta": {
+    "templateId": "self-building-ai-agent",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5814edaa921f7c1e881f3bf7b96cc9981403a1ef33c1a59f860d47383ce3b2ba"
+  },
+  "id": "Pjan5Hh0QjLSaLeZ",
+  "tags": [
+    {
+      "createdAt": "2025-05-30T09:37:28.403Z",
+      "updatedAt": "2025-05-30T09:37:28.403Z",
+      "id": "gZ8V0Z8MNlc2NKaq",
+      "name": "R&D"
+    }
+  ]
+}
